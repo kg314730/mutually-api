@@ -8,7 +8,7 @@ dotenv.config();
 require("./db/connection");
 
 app = express();
-
+app.options('*', cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());
 app.use(

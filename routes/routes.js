@@ -46,7 +46,6 @@ router.post("/login", async (req, res) => {
     maxAge: 4 * 24 * 60 * 60 * 1000, //4 day
     domain: "mutually-yqyb.onrender.com",
   });
-  // res.status(200).send(user);
   res.status(200).send({
     message: "success",
   });
@@ -56,6 +55,7 @@ router.get("/user", async (req, res) => {
   try {
     const cookie = req.cookies["jwt"];
     const claims = jwt.verify(cookie, process.env.SECRET_KEY);
+    console.log(cookie, claims);
     if (!claims) {
       return res.status(401).send({
         message: "Unauthenticated",

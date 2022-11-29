@@ -8,6 +8,7 @@ dotenv.config();
 require("./db/connection");
 
 app = express();
+app.use(cookieParser());
 app.use(express.json({ limit: "50mb" }));
 app.use(
   cors({
@@ -15,7 +16,7 @@ app.use(
     origin: process.env.FRONTEND_URL,
   })
 );
-app.use(cookieParser());
+
 
 app.use("/", routes);
 app.use("/feed", feedRoutes);

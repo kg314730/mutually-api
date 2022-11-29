@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
   res.cookie("jwt", token, {
     httpOnly: true,
     maxAge: 4 * 24 * 60 * 60 * 1000, //4 day
-    domain: "mutually-yqyb.onrender.com",
+    domain: process.env.FRONTEND_URL,
   });
   res.status(200).send({
     message: "success",

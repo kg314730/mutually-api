@@ -29,7 +29,6 @@ router.post("/addpost", async (req, res) => {
     picture: req.body.picture,
     name: req.body.name,
   });
-  // console.log(post);
   try {
     await post.save();
     res.status(200).send({ success: true, message: "Post added successfully" });

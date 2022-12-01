@@ -54,14 +54,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/user", async (req, res) => {
   try {
-    const cookie = req.cookies["jwt"];
-    const claims = jwt.verify(cookie, process.env.SECRET_KEY);
-    if (!claims) {
-      return res.status(401).send({
-        message: "Unauthenticated",
-      });
-    }
-    const user = await User.findOne({ _id: claims._id });
+    const user = await User.findOne({ _id: req.claims._id });
     const { password, ...data } = user.toJSON();
     res.send(data);
   } catch (e) {

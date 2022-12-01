@@ -7,15 +7,25 @@ const jwt = require("jsonwebtoken");
 router.get("/posts", async (req, res) => {
   try {
     if (typeof req.query.company != "undefined") {
-      const posts = await Feed.find({ company: req.query.company }, { _id: 0 });
+      const posts = await Feed.find({ company: req.query.company });
       res.send(posts);
     } else {
-      const posts = await Feed.find({}, { _id: 0 });
+      const posts = await Feed.find({});
       res.send(posts);
     }
   } catch (e) {
     return res.status(400).send({
       message: e.message,
+    });
+  }
+});
+router.post("/posts/delete", async (req, res) => {
+  if (req.claims._id == req.body.userID) {
+    const result = await Feed.deleteOne({ _id: req.body.postID });
+    res.status(200).send(result);
+  } else {
+    res.status(401).send({
+      message: "Unauthorized",
     });
   }
 });

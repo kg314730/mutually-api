@@ -95,9 +95,15 @@ router.post("/logout", async (req, res) => {
 
 router.get("/search", async (req, res) => {
   try {
-    const users = await User.find({
-      current_company: req.query.company.toUpperCase(),
-    });
+    let users;
+    if(req.query.company==""){
+      users = await User.find();
+    }
+    else{
+      users = await User.find({
+        current_company: req.query.company.toUpperCase(),
+      });
+    }
     if (users.length == 0) {
       throw new Error(`No results found for ${req.query.company}`);
     }

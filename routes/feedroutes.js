@@ -7,10 +7,10 @@ const jwt = require("jsonwebtoken");
 router.get("/posts", async (req, res) => {
   try {
     if (typeof req.query.company != "undefined") {
-      const posts = await Feed.find({ company: req.query.company });
+      const posts = await Feed.find({ company: req.query.company }).sort({$natural:-1});
       res.send(posts);
     } else {
-      const posts = await Feed.find({});
+      const posts = await Feed.find({}).sort({$natural:-1});
       res.send(posts);
     }
   } catch (e) {
